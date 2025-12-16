@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mental Health Awareness & Support Hub</title>
+<style>
+  /* Base styles */
+  * { box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0; background:#f9fafb; color:#fff; line-height:1.6;
+  }
+  a { color:#ffd600; text-decoration:none; }
+  a:hover { text-decoration:underline; }
+  header {
+    background: linear-gradient(90deg, #0e4f8a, #3b82f6);
+    color:#fff; padding:20px 30px; text-align:center; position:sticky; top:0; z-index:999;
+  }
+  header h1 { margin:0; font-size:2.5rem; letter-spacing:1px;}
+  nav {
+    display:flex; justify-content:center; gap:15px; margin-top:15px;
+  }
+  nav button {
+    background:#fff; color:#0e4f8a; border:none; padding:10px 20px; border-radius:5px; cursor:pointer; font-weight:600; transition:background-color 0.3s;
+  }
+  nav button.active, nav button:hover {
+    background:#ffd600;
+    color:#0e4f8a;
+    outline:none;
+  }
+  main { max-width:1100px; margin:30px auto; padding:0 20px; }
+  section {
+    display:none; position:relative;
+    padding:30px; border-radius:10px;
+    box-shadow:0 3px 16px rgba(0,0,0,0.3);
+    overflow: hidden;
+  }
+  section.active { display:block; }
+  section::before {
+    content: "";
+    position: absolute;
+    top:0; left:0; right:0; bottom:0;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.15;
+    z-index: -1;
+  }
+  #home::before {
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1350&q=80');
+  }
+  #about::before {
+    background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1350&q=80');
+  }
+  #resources::before {
+    background-image: url('https://images.unsplash.com/photo-1515377905703-c4788e51af15?auto=format&fit=crop&w=1350&q=80');
+  }
+  #support::before {
+    background-image: url('https://images.unsplash.com/photo-1486308510493-cb49d2f04536?auto=format&fit=crop&w=1350&q=80');
+  }
+  #contact::before {
+    background-image: url('https://images.unsplash.com/photo-1465807093667-69a2f5f98e52?auto=format&fit=crop&w=1350&q=80');
+  }
+  #weeklyschedule::before {
+    background-image: url('https://images.unsplash.com/photo-1496307042754-b4aa456c4a2d?auto=format&fit=crop&w=1350&q=80');
+  }
+  h2, h3, p, ul, form {
+    position: relative;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.95);
+  }
+  p, ul {
+    background: rgba(0,0,0,0.5);
+    padding: 12px 15px;
+    border-radius: 6px;
+  }
+  ul li { margin: 10px 0; }
+  button.action-btn, button[type="submit"] {
+    background-color: #ffd600;
+    color: #0e4f8a;
+    font-weight: 700;
+    border: none;
+    padding: 15px 28px;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    margin: 15px 0;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(255, 214, 10, 0.7);
+    transition: background-color 0.3s ease;
+  }
+  button.action-btn:hover, button[type="submit"]:hover {
+    background-color: #e6c200;
+  }
+  form label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+  }
+  input, textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+    border: none;
+    font-size: 1rem;
+    background: #222;
+    color: white;
+  }
+  input:focus, textarea:focus {
+    outline: 2px solid #ffd600;
+  }
+  footer {
+    text-align: center;
+    padding: 25px 20px;
+    color: #bbb;
+    font-size: 0.9rem;
+    background: #111;
+    border-top: 1px solid #222;
+  }
+  @media(max-width:768px) {
+    nav { flex-wrap: wrap; gap: 10px; }
+    main { margin: 20px auto; padding: 0 15px; }
+    section { padding: 20px; }
+  }
+
+  /* Weekly schedule styles with better visibility */
+  #weeklyschedule {
+    color: #ffffff;
+  }
+  #weeklyschedule p,
+  #weeklyschedule div,
+  #weeklyschedule .day,
+  #weeklyschedule .event {
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 8px 12px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+    color: #ffffff;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.6);
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Mental Health Awareness & Support Hub</h1>
+  <nav aria-label="Main menu">
+    <button class="tab-link active" data-tab="home" aria-controls="home" aria-selected="true">Home</button>
+    <button class="tab-link" data-tab="about" aria-controls="about" aria-selected="false">About</button>
+    <button class="tab-link" data-tab="resources" aria-controls="resources" aria-selected="false">Resources</button>
+    <button class="tab-link" data-tab="support" aria-controls="support" aria-selected="false">Support</button>
+    <button class="tab-link" data-tab="weeklyschedule" aria-controls="weeklyschedule" aria-selected="false">Weekly Schedule</button>
+    <button class="tab-link" data-tab="contact" aria-controls="contact" aria-selected="false">Contact</button>
+  </nav>
+</header>
+
+<main>
+  <section id="home" class="tab-content active" role="tabpanel" aria-labelledby="home-tab" tabindex="0">
+    <h2>Understanding Mental Health</h2>
+    <p>Mental health includes emotional, psychological, and social well-being. Learn to recognize signs and understand conditions. Raising awareness and providing support for mental health challenges.</p>
+    <p>This hub is dedicated to providing trusted information and supportive resources to foster mental health awareness and reduce stigma.</p>
+    <h3>Group Sharing Module</h3>
+    <p>Create or join community groups to share your mental health journey and support peers.</p>
+    <button class="action-btn" onclick="alert('Group creation feature coming soon!')">Create New Group</button>
+    <button class="action-btn" onclick="alert('Join group feature coming soon!')">Join Group</button>
+  </section>
+
+  <section id="weeklyschedule" role="tabpanel" aria-labelledby="weeklyschedule-tab" tabindex="0">
+    <h2>Weekly Schedule View</h2>
+    <div id="weekly-calendar" aria-label="Weekly schedule calendar">
+      <div class="day"><strong>Sunday</strong></div>
+      <div class="day"><strong>Monday</strong></div>
+      <div class="day"><strong>Tuesday</strong></div>
+      <div class="day"><strong>Wednesday</strong></div>
+      <div class="day"><strong>Thursday</strong></div>
+      <div class="day"><strong>Friday</strong></div>
+      <div class="day"><strong>Saturday</strong></div>
+      <div class="day"><div class="event">Yoga - 8:00 AM</div></div>
+      <div class="day"><div class="event">Self-Care Workshop - 9:00 AM</div></div>
+      <div class="day"><div class="event">Meditation - 10:00 AM</div></div>
+      <div class="day"><div class="event">Support Group - 5:00 PM</div></div>
+      <div class="day"><div class="event">Therapy Appointment - 3:00 PM</div></div>
+      <div class="day"><div class="event">Art Therapy - 11:00 AM</div></div>
+      <div class="day">Free Day</div>
+    </div>
+  </section>
+
+  <section id="about" role="tabpanel" aria-labelledby="about-tab" tabindex="0">
+    <h2>About Us</h2>
+    <p>The Mental Health Awareness & Support Hub is committed to fostering a supportive community for individuals seeking to better understand and manage mental health challenges. Our platform integrates trusted information, tools, and resources designed by experts to promote emotional, psychological, and social well-being.</p>
+    <p>We believe that raising awareness is the first crucial step in reducing mental health stigma. Our goal is to create an inclusive space where users can access educational content, connect with support networks, and find practical help tailored to their needs.</p>
+    <p>Our team is composed of mental health professionals, advocates, technologists, and community members who collaborate to ensure the hub remains relevant, accessible, and continuously evolving to serve the community better.</p>
+    <p>We uphold principles of empathy, confidentiality, and empowerment, encouraging users to share their stories and support one another in a safe environment. Through features like custom scheduling, group collaboration, and curated resources, we aspire to be a comprehensive portal for mental health awareness and support.</p>
+    <p>Join us in our mission to nurture mental wellness and make compassionate mental health care accessible to all.</p>
+  </section>
+
+  <section id="resources" role="tabpanel" aria-labelledby="resources-tab" tabindex="0">
+    <h2>Helpful Resources</h2>
+    <ul class="resources-list">
+      <li><a href="https://www.mentalhealth.gov/get-help-now" target="_blank" rel="noopener noreferrer">Get Help Now (Crisis Hotline)</a></li>
+      <li><a href="https://www.psychologytoday.com/us/therapists" target="_blank" rel="noopener noreferrer">Therapist Directory</a></li>
+      <li><a href="https://www.patientvoices.org/" target="_blank" rel="noopener noreferrer">Share Your Story</a></li>
+      <li><a href="https://www.nimh.nih.gov/health/publications" target="_blank" rel="noopener noreferrer">Educational Articles</a></li>
+    </ul>
+  </section>
+
+  <section id="support" role="tabpanel" aria-labelledby="support-tab" tabindex="0">
+    <h2>Support</h2>
+    <ul class="support-list">
+      <li><a href="https://www.supportgroups.com/" target="_blank" rel="noopener noreferrer">Support Groups</a></li>
+      <li><a href="https://www.apa.org/helpcenter/mental-health-professionals" target="_blank" rel="noopener noreferrer">Mental Health Professionals</a></li>
+      <li><a href="https://www.psychologytoday.com/us/counseling" target="_blank" rel="noopener noreferrer">Counseling & Therapy</a></li>
+      <li><a href="https://www.mentalhealthforum.net/" target="_blank" rel="noopener noreferrer">Online Forums</a></li>
+    </ul>
+  </section>
+
+  <section id="contact" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">
+    <h2>Contact Us</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" required aria-required="true" />
+      <label for="email">Email:</label>
+      <input type="email" id="email" name="email" required aria-required="true" />
+      <label for="message">Message:</label>
+      <textarea id="message" name="message" rows="5" required aria-required="true"></textarea>
+      <button type="submit">Send Message</button>
+    </form>
+  </section>
+</main>
+
+<footer>
+  &copy; 2025 Mental Health Awareness & Support Hub. All rights reserved.
+</footer>
+
+<script>
+const tabs = document.querySelectorAll('.tab-link');
+const contents = document.querySelectorAll('main section');
+
+tabs.forEach(tab => {
+  tab.addEventListener('click', () => {
+    tabs.forEach(t => {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    contents.forEach(c => {
+      c.classList.remove('active');
+      c.style.display = 'none';
+    });
+    tab.classList.add('active');
+    tab.setAttribute('aria-selected', 'true');
+    const activeSection = document.getElementById(tab.dataset.tab);
+    activeSection.classList.add('active');
+    activeSection.style.display = 'block';
+    activeSection.focus();
+  });
+});
+
+document.getElementById('contactForm').addEventListener('submit', e => {
+  e.preventDefault();
+  alert('Thank you for contacting us, ' + e.target.name.value + '! We will get back to you soon.');
+  e.target.reset();
+});
+</script>
+
+</body>
+</html>
+
